@@ -1,3 +1,4 @@
+const jsonModel = require('./data.json');
 module.exports.brands = ()=>{
-    return ["brand1","brand2","brand3"];
+    return jsonModel.brands
 }

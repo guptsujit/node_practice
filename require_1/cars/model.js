@@ -1,3 +1,4 @@
+const jsonModel = require('./data.json');
 module.exports.models = ()=>{
-    return ["model1","model2","model3"];
+    return jsonModel.models
 }
