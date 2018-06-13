@@ -1,0 +1,14 @@
+{
+  "name": "nodedemo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "sujit",
+  "license": "ISC",
+  "dependencies": {
+    "command-line-args": "^5.0.2"
+  }
+}
