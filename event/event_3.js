@@ -4,7 +4,8 @@ class Person extends eventEmitter {
     
     constructor(username){
        //Here super constructor is necessary in derived class
-       // to get the funtions of parent class that is eventEmitter class
+       // for accessing this or returning from derived constructor
+       // super is required to get the funtions like on,emit  of parent class in derived class
        super();
         this.name = username;
         this.on('speak',function(){
