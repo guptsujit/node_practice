@@ -1,5 +1,5 @@
 const eventEmitter = require('events');
-
+console.log(eventEmitter);
 class Person extends eventEmitter {
     
     constructor(username){
