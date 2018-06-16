@@ -1,6 +1,7 @@
 const http = require('http');
 
 const server = http.createServer();
+
 server.on('request',(req,res)=>{
 
     req.on('error',(err)=>{

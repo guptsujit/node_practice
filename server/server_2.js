@@ -10,5 +10,6 @@ const fs = require('fs');
   let toString = JSON.stringify(json);
   res.write(toString);
   res.end();
-}).listen(3030,'127.0.0.1')
-console.log('server is running...');
+}).listen(3030,'127.0.0.1',()=>{
+    console.log('server is running...');
+})

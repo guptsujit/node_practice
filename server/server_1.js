@@ -11,5 +11,6 @@ http.createServer((req, res) => {
         res.write('URl not found');
     }
     res.end();
-}).listen(3030, '127.0.0.1')
-console.log('server is running...');
+}).listen(3030, '127.0.0.1',function(){
+    console.log('server is running...');
+})
