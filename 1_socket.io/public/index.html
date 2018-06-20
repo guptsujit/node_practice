@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <title>Hello world</title>
+</head>
+
+<body>Chat Box</body>
+
+<div id="messageWrapper" style="width:300px;height:300px;background-color:bisque">
+
+</div>
+
+</html>
+<br></br>
+
+<div>
+    <textarea rows="4" cols="25" id="messagebox"></textarea>
+</div>
+<br>
+
+<div id="nameWrapper" style="width:200px;height:50px;background-color:green">
+
+</div>
+</br>
+<div>
+    <input type="text" name="name" id="name" placeholder="enter your name">
+    <input type="button" value="Submit" id="addname">
+</div>
+
+</html>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    const socket = io();
+    socket.on('connect', () => {
+        console.log('connected to server');
+
+        socket.on('disconnect', () => {
+            console.log('disconnected....')
+        })
+        $("#messagebox").keypress(function (e) {
+            if (e.which == 13) {
+                socket.emit('newMessage', $('#messagebox').val(), $('#nameWrapper').html());
+                $('#messagebox').val('');
+            }
+        })
+        socket.on('sendMessage', (message, username) => {
+            $('#messageWrapper').append(username + ' : ' + (message + "<br>"));
+
+        })
+    })
+
+
+
+    $(document).ready(function () {
+        $('#addname').on('click', function () {
+
+            $('#nameWrapper').html($('#name').val());
+            $('#name').val('');
+        })
+    })
+
+</script>

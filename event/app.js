@@ -10,6 +10,11 @@ setTimeout(()=>{
  // This will set maximum listener
  //console.log(eventEmitter.setMaxListeners(2));
 
+ eventEmitter.on('write', (message)=>{
+     console.log(message);
+     message();
+ });
+
 eventEmitter.on('speak',()=>{
     console.log("listner1 executed ?");
 })
@@ -42,6 +47,12 @@ eventEmitter.emit('speak','sujit','vishal');
 
 //Returns an array of listeners for the specified event.
 const totallistener = eventEmitter.listeners('speak');
+
+ eventEmitter.emit('write',()=>{
+     myArray = ['apple','banana'];
+     console.log(myArray);
+ });
+
 
 console.log(totallistener);
 
