@@ -19,7 +19,10 @@
     <textarea rows="4" cols="25" id="messagebox"></textarea>
 </div>
 <br>
+<div id="typingWrapper">
 
+</div>
+<br>
 <div id="nameWrapper" style="width:200px;height:50px;background-color:green">
 
 </div>
@@ -39,16 +42,49 @@
         socket.on('disconnect', () => {
             console.log('disconnected....')
         })
-        $("#messagebox").keypress(function (e) {
-            if (e.which == 13) {
+        $("#messagebox").keyup(function (e) {
+
+            if ($('#messagebox').val() != '') {
+                socket.emit('typing', $('#nameWrapper').html() + '  is typing....');
+            } else {
+                socket.emit('typingStopped', true);
+            }
+
+            if (e.which == 13 && $('#messagebox').val() != '') {
                 socket.emit('newMessage', $('#messagebox').val(), $('#nameWrapper').html());
                 $('#messagebox').val('');
+
             }
-        })
-        socket.on('sendMessage', (message, username) => {
-            $('#messageWrapper').append(username + ' : ' + (message + "<br>"));
 
         })
+
+        $("#messagebox").focus(function () {
+            if ($('#messagebox').val() == '') {
+
+            }
+        })
+        // user is typing event
+        socket.on('userStoppedTyping', (condition) => {
+            if (condition) {
+                $('#typingWrapper').html('');
+            }
+
+        })
+
+        // user is typing event
+        socket.on('usertyping', (message) => {
+            $('#typingWrapper').html(message);
+
+        })
+
+        socket.on('sendMessage', (message, username, userTyped) => {
+            $('#messageWrapper').append(username + ' : ' + (message + "<br>"));
+            if (userTyped) {
+                $('#typingWrapper').html('');
+            }
+        })
+
+
     })
 
 
