@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        my node app
+    </title>
+    <link href="./css/style.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <script src="./js/script.js"></script>
+    <script src="./socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var socket = io();
+            socket.on('connect', () => {
+                console.log('connected to server');
+
+                socket.on('disconnect', () => {
+                    console.log('disconnected....')
+                })
+                $('#btn').on('click', function (e) {
+                    e.preventDefault();
+                    var message = $('#message').val();
+                    var username = $('#nameWrapper').html();
+                    socket.emit('chatMessage', username,message);
+                    $('#message').val('');
+                });
+                socket.on('messageFromServer', (username,incomingMessage) => {
+                    $('#messageWrapper').append(username + ' : ' + (incomingMessage + "<br>"));
+                });
+            })
+
+
+            $('#addname').on('click', function () {
+
+                $('#nameWrapper').html($('#name').val());
+                $('#name').val('');
+            })
+
+
+        })
+
+    </script>
+
+</head>
+
+<body>
+    <div class="container">
+        <h1>Message </h1>
+        <div class="row">
+            <div class="col-sm-4">
+
+                <div id="messageWrapper" style="width:300px;height:150px;background-color:bisque">
+
+                </div>
+            </div><br></br>
+            <div class="col-sm-4">
+
+                <div id="nameWrapper" style="width:200px;height:50px;background-color:bisque">
+
+                </div>
+                <br></br>
+                <input type="text" size="35" style="height: 50px;" name="name" id="name"
+                    placeholder="enter your name" />
+                <br></br>
+                <button class="btn" id="addname">Add Name</button>
+
+
+
+
+            </div>
+            <div class="chat-popup col-sm-4" id="myForm">
+                <form action="" class="form-container">
+
+                    <label for="msg"><b>Chat</b></label>
+                    <textarea placeholder="Type message.." name="msg" required id="message"></textarea>
+
+                    <button class="btn" id="btn">Send</button>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
